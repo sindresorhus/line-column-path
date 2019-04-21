@@ -6,7 +6,7 @@
 ## Install
 
 ```
-$ npm install --save line-column-path
+$ npm install line-column-path
 ```
 
 
@@ -29,23 +29,23 @@ lineColumnPath.stringify(parsed);
 
 #### input
 
-Type: `string` `Object`
+Type: `string` `object`
 
 File path to parse.
 
 Can also be an object that you want to validate and normalize.
 
-### .stringify(input, [options])
+### .stringify(path, [options])
 
-#### input
+#### path
 
-Type: `Object`
+Type: `object`
 
 Object with a `.file` property and optionally a `.line` and `.column` property.
 
 #### options
 
-Type: `Object`
+Type: `object`
 
 ##### file
 
