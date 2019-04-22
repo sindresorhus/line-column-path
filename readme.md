@@ -29,7 +29,7 @@ lineColumnPath.stringify(parsed);
 
 #### input
 
-Type: `string` `object`
+Type: `string | object`
 
 File path to parse.
 
