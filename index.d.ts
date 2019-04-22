@@ -1,9 +1,4 @@
-// import { Mutable } from "type-fest";
-
-// TODO: wait for next release of type-fest
-export type Mutable<ObjectType> = {
-	-readonly [KeyType in keyof ObjectType]: ObjectType[KeyType];
-}
+import {Mutable} from 'type-fest';
 
 export interface PathDescriptor {
 	readonly file: string;
