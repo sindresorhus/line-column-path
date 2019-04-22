@@ -1,23 +1,23 @@
 'use strict';
 
-exports.parse = input => {
-	if (typeof input === 'object') {
-		if (!input.file) {
+exports.parse = path => {
+	if (typeof path === 'object') {
+		if (!path.file) {
 			throw new Error('Missing required `file` property');
 		}
 
 		return {
-			file: input.file,
-			line: input.line || 1,
-			column: input.column || 1
+			file: path.file,
+			line: path.line || 1,
+			column: path.column || 1
 		};
 	}
 
-	const match = /^(.*?):(\d+)(?::(\d+))?$/.exec(input);
+	const match = /^(.*?):(\d+)(?::(\d+))?$/.exec(path);
 
 	if (!match) {
 		return {
-			file: input,
+			file: path,
 			line: 1,
 			column: 1
 		};
@@ -34,34 +34,35 @@ exports.parse = input => {
 	};
 };
 
-exports.stringify = (obj, opts) => {
-	opts = Object.assign({
+exports.stringify = (path, options) => {
+	options = {
 		file: true,
-		column: true
-	}, opts);
+		column: true,
+		...options
+	};
 
-	if (!obj.file) {
+	if (!path.file) {
 		throw new Error('Missing required `file` property');
 	}
 
-	let ret = '';
+	let result = '';
 
-	if (opts.file) {
-		ret += obj.file;
+	if (options.file) {
+		result += path.file;
 	}
 
-	if (obj.line) {
-		ret += `:${obj.line}`;
+	if (path.line) {
+		result += `:${path.line}`;
 	}
 
-	if (obj.line && obj.column && opts.column) {
-		ret += `:${obj.column}`;
+	if (path.line && path.column && options.column) {
+		result += `:${path.column}`;
 	}
 
-	if (!opts.file) {
-		ret = ret.replace(/^:/, '');
+	if (!options.file) {
+		result = result.replace(/^:/, '');
 	}
 
-	return ret;
+	return result;
 };
 
