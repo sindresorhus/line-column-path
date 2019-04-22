@@ -1,6 +1,6 @@
 {
 	"name": "line-column-path",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Parse and stringify file paths with line and column like `unicorn.js:8:14`",
 	"license": "MIT",
 	"repository": "sindresorhus/line-column-path",
