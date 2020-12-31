@@ -1,4 +1,4 @@
-# line-column-path [![Build Status](https://travis-ci.org/sindresorhus/line-column-path.svg?branch=master)](https://travis-ci.org/sindresorhus/line-column-path)
+# line-column-path
 
 > Parse and stringify file paths with line and column like `unicorn.js:8:14`
 
