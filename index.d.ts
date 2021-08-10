@@ -26,36 +26,36 @@ export interface StringifyOptions {
 
 	@default true
 	*/
-	column?: boolean;
+	readonly column?: boolean;
 }
 
 /**
 Parse file paths with line and column like `unicorn.js:8:14`.
 
-@param path - File path to parse. Can also be an object that you want to validate and normalize.
+@param path - The file path to parse. Can also be an object that you want to validate and normalize.
 
 @example
 ```
-import lineColumnPath = require('line-column-path');
+import {parseLineColumnPath} from 'line-column-path';
 
-lineColumnPath.parse('unicorn.js:8:14');
+parseLineColumnPath('unicorn.js:8:14');
 //=> {file: 'unicorn.js', line: 8, column: 14}
 ```
 */
-export function parse(path: PathLike): ParsedPath;
+export function parseLineColumnPath(path: PathLike): ParsedPath;
 
 /**
 Stringify file paths.
 
 @example
 ```
-import lineColumnPath = require('line-column-path');
+import {stringifyLineColumnPath} from 'line-column-path';
 
-lineColumnPath.stringify({file: 'unicorn.js', line: 8, column: 14});
+stringifyLineColumnPath({file: 'unicorn.js', line: 8, column: 14});
 //=> 'unicorn.js:8:14'
 ```
 */
-export function stringify(
+export function stringifyLineColumnPath(
 	path: PathDescriptor,
 	options?: StringifyOptions
 ): string;

@@ -1,99 +1,105 @@
-import path from 'path';
 import test from 'ava';
-import lineColumnPath from '.';
+import {parseLineColumnPath, stringifyLineColumnPath} from './index.js';
 
 test('parse string', t => {
-	t.deepEqual(lineColumnPath.parse('x.js:1:2'), {
+	t.deepEqual(parseLineColumnPath('x.js:1:2'), {
 		file: 'x.js',
 		line: 1,
-		column: 2
+		column: 2,
 	});
 
-	t.deepEqual(lineColumnPath.parse(path.join(__dirname, 'x.js') + ':1:2'), {
-		file: path.join(__dirname, 'x.js'),
+	const pathFixture = '/Users/sindresorhus/dev/unicorn/x.js';
+	t.deepEqual(parseLineColumnPath(`${pathFixture}:1:2`), {
+		file: pathFixture,
 		line: 1,
-		column: 2
+		column: 2,
 	});
 
-	t.deepEqual(lineColumnPath.parse('x.js:10'), {
+	t.deepEqual(parseLineColumnPath('x.js:10'), {
 		file: 'x.js',
 		line: 10,
-		column: 1
+		column: 1,
 	});
 
-	t.deepEqual(lineColumnPath.parse('x.js'), {
+	t.deepEqual(parseLineColumnPath('x.js'), {
 		file: 'x.js',
 		line: 1,
-		column: 1
+		column: 1,
 	});
 
 	t.throws(() => {
-		lineColumnPath.parse(':1:1');
-	}, 'Missing file path');
+		parseLineColumnPath(':1:1');
+	}, {
+		message: 'Missing file path',
+	});
 });
 
 test('parse object', t => {
-	t.deepEqual(lineColumnPath.parse({
+	t.deepEqual(parseLineColumnPath({
 		file: 'x.js',
 		line: 20,
-		column: 10
+		column: 10,
 	}), {
 		file: 'x.js',
 		line: 20,
-		column: 10
+		column: 10,
 	});
 
-	t.deepEqual(lineColumnPath.parse({
+	t.deepEqual(parseLineColumnPath({
 		file: 'x.js',
-		line: 20
+		line: 20,
 	}), {
 		file: 'x.js',
 		line: 20,
-		column: 1
+		column: 1,
 	});
 
-	t.deepEqual(lineColumnPath.parse({
-		file: 'x.js'
+	t.deepEqual(parseLineColumnPath({
+		file: 'x.js',
 	}), {
 		file: 'x.js',
 		line: 1,
-		column: 1
+		column: 1,
 	});
 
 	t.throws(() => {
-		lineColumnPath.parse({noop: 'x'});
-	}, 'Missing required `file` property');
+		parseLineColumnPath({noop: 'x'});
+	}, {
+		message: 'Missing required `file` property',
+	});
 });
 
 test('stringify', t => {
-	t.is(lineColumnPath.stringify({
+	t.is(stringifyLineColumnPath({
 		file: 'x.js',
 		line: 20,
-		column: 10
+		column: 10,
 	}), 'x.js:20:10');
 
-	t.is(lineColumnPath.stringify({
+	t.is(stringifyLineColumnPath({
 		file: 'x.js',
-		line: 20
+		line: 20,
 	}), 'x.js:20');
 
-	t.is(lineColumnPath.stringify({
-		file: 'x.js'
+	t.is(stringifyLineColumnPath({
+		file: 'x.js',
 	}), 'x.js');
 
 	t.throws(() => {
-		lineColumnPath.stringify({noop: 'x'});
-	}, 'Missing required `file` property');
+		stringifyLineColumnPath({noop: 'x'});
+	}, {
+		message: 'Missing required `file` property',
+	});
 
-	t.is(lineColumnPath.stringify({
+	t.is(stringifyLineColumnPath({
 		file: 'x.js',
 		line: 20,
-		column: 10
+		column: 10,
 	}, {file: false}), '20:10');
 
-	t.is(lineColumnPath.stringify({
+	t.is(stringifyLineColumnPath({
 		file: 'x.js',
 		line: 20,
-		column: 10
+		column: 10,
 	}, {column: false}), 'x.js:20');
 });

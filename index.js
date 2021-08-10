@@ -1,6 +1,4 @@
-'use strict';
-
-exports.parse = path => {
+export function parseLineColumnPath(path) {
 	if (typeof path === 'object') {
 		if (!path.file) {
 			throw new Error('Missing required `file` property');
@@ -9,7 +7,7 @@ exports.parse = path => {
 		return {
 			file: path.file,
 			line: path.line || 1,
-			column: path.column || 1
+			column: path.column || 1,
 		};
 	}
 
@@ -19,7 +17,7 @@ exports.parse = path => {
 		return {
 			file: path,
 			line: 1,
-			column: 1
+			column: 1,
 		};
 	}
 
@@ -29,16 +27,16 @@ exports.parse = path => {
 
 	return {
 		file: match[1],
-		line: Number(match[2]),
-		column: Number(match[3]) || 1
+		line: Number.parseInt(match[2], 10),
+		column: Number.parseInt(match[3], 10) || 1,
 	};
-};
+}
 
-exports.stringify = (path, options) => {
+export function stringifyLineColumnPath(path, options) {
 	options = {
 		file: true,
 		column: true,
-		...options
+		...options,
 	};
 
 	if (!path.file) {
@@ -64,5 +62,4 @@ exports.stringify = (path, options) => {
 	}
 
 	return result;
-};
-
+}

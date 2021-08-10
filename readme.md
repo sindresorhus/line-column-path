@@ -13,29 +13,28 @@ $ npm install line-column-path
 ## Usage
 
 ```js
-const lineColumnPath = require('line-column-path');
+import {parseLineColumnPath, stringifyLineColumnPath} from 'line-column-path';
 
-const parsed = lineColumnPath.parse('unicorn.js:8:14');
+const parsed = parseLineColumnPath('unicorn.js:8:14');
 //=> {file: 'unicorn.js', line: 8, column: 14}
 
-lineColumnPath.stringify(parsed);
+stringifyLineColumnPath(parsed);
 //=> 'unicorn.js:8:14'
 ```
 
-
 ## API
 
-### .parse(input)
+### parseLineColumnPath(path)
 
-#### input
+#### path
 
 Type: `string | object`
 
-File path to parse.
+The file path to parse.
 
 Can also be an object that you want to validate and normalize.
 
-### .stringify(path, [options])
+### stringifyLineColumnPath(path, options?)
 
 #### path
 
@@ -49,7 +48,7 @@ Type: `object`
 
 ##### file
 
-Type: `boolean`<br>
+Type: `boolean`\
 Default: `true`
 
 Output the file path.
@@ -58,14 +57,9 @@ Setting this to `false` will result in `8:18` instead of `unicorn.js:8:14`.
 
 ##### column
 
-Type: `boolean`<br>
+Type: `boolean`\
 Default: `true`
 
 Output the column.
 
 Setting this to `false` will result in `unicorn.js:8` instead of `unicorn.js:8:14`.
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)
