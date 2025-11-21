@@ -1,3 +1,4 @@
+import url from 'node:url';
 import test from 'ava';
 import {parseLineColumnPath, stringifyLineColumnPath} from './index.js';
 
@@ -31,6 +32,12 @@ test('parse string', t => {
 		parseLineColumnPath(':1:1');
 	}, {
 		message: 'Missing file path',
+	});
+
+	t.deepEqual(parseLineColumnPath(`${pathFixture}:1:2`), {
+		file: url.pathToFileURL(pathFixture),
+		line: 1,
+		column: 2,
 	});
 });
 

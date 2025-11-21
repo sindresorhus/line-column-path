@@ -12,6 +12,15 @@ expectType<ParsedPath>(
 expectType<ParsedPath>(
 	parseLineColumnPath({file: 'unicorn.js', column: 1}),
 );
+expectType<ParsedPath>(
+	parseLineColumnPath({file: new URL('file://path/to/unicorn.js')}),
+);
+expectType<ParsedPath>(
+	parseLineColumnPath({file: new URL('file://path/to/unicorn.js'), line: 1}),
+);
+expectType<ParsedPath>(
+	parseLineColumnPath({file: new URL('file://path/to/unicorn.js'), column: 1}),
+);
 
 expectType<string>(stringifyLineColumnPath(parsed));
 expectType<string>(stringifyLineColumnPath({file: 'unicorn.js'}));

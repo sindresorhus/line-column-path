@@ -1,7 +1,7 @@
 import {Mutable} from 'type-fest';
 
 export interface PathDescriptor {
-	readonly file: string;
+	readonly file: string | URL;
 	readonly line?: number;
 	readonly column?: number;
 }
