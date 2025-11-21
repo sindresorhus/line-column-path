@@ -6,7 +6,7 @@ export interface PathDescriptor {
 	readonly column?: number;
 }
 
-export type PathLike = string | PathDescriptor | URL;
+export type PathLike = string | URL | PathDescriptor;
 export type ParsedPath = Mutable<Required<PathDescriptor>>;
 
 export interface StringifyOptions {
