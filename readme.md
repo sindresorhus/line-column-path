@@ -2,13 +2,11 @@
 
 > Parse and stringify file paths with line and column like `unicorn.js:8:14`
 
-
 ## Install
 
+```sh
+npm install line-column-path
 ```
-$ npm install line-column-path
-```
-
 
 ## Usage
 

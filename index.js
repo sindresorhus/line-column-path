@@ -1,4 +1,3 @@
-// eslint-disable-next-line node/file-extension-in-import
 import {toPath} from 'unicorn-magic/node';
 
 export function parseLineColumnPath(path) {

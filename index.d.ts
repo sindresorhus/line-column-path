@@ -1,15 +1,18 @@
-import {Mutable} from 'type-fest';
-
-export interface PathDescriptor {
+export type PathDescriptor = {
 	readonly file: string | URL;
 	readonly line?: number;
 	readonly column?: number;
-}
+};
 
 export type PathLike = string | URL | PathDescriptor;
-export type ParsedPath = Mutable<Required<PathDescriptor>>;
 
-export interface StringifyOptions {
+export type ParsedPath = {
+	file: string;
+	line: number;
+	column: number;
+};
+
+export type StringifyOptions = {
 	/**
 	Output the file path.
 
@@ -27,7 +30,7 @@ export interface StringifyOptions {
 	@default true
 	*/
 	readonly column?: boolean;
-}
+};
 
 /**
 Parse file paths with line and column like `unicorn.js:8:14`.
