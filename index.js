@@ -1,11 +1,16 @@
+// eslint-disable-next-line node/file-extension-in-import
+import {toPath} from 'unicorn-magic/node';
+
 export function parseLineColumnPath(path) {
+	path = toPath(path);
+
 	if (typeof path === 'object') {
 		if (!path.file) {
 			throw new Error('Missing required `file` property');
 		}
 
 		return {
-			file: path.file,
+			file: toPath(path.file),
 			line: path.line || 1,
 			column: path.column || 1,
 		};

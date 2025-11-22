@@ -1,12 +1,12 @@
 import {Mutable} from 'type-fest';
 
 export interface PathDescriptor {
-	readonly file: string;
+	readonly file: string | URL;
 	readonly line?: number;
 	readonly column?: number;
 }
 
-export type PathLike = string | PathDescriptor;
+export type PathLike = string | URL | PathDescriptor;
 export type ParsedPath = Mutable<Required<PathDescriptor>>;
 
 export interface StringifyOptions {

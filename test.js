@@ -1,5 +1,10 @@
+import url from 'node:url';
+import path from 'node:path';
 import test from 'ava';
 import {parseLineColumnPath, stringifyLineColumnPath} from './index.js';
+
+const fixturePath = path.resolve('/Users/sindresorhus/dev/unicorn/x.js');
+const fixtureUrl = url.pathToFileURL(fixturePath);
 
 test('parse string', t => {
 	t.deepEqual(parseLineColumnPath('x.js:1:2'), {
@@ -8,9 +13,8 @@ test('parse string', t => {
 		column: 2,
 	});
 
-	const pathFixture = '/Users/sindresorhus/dev/unicorn/x.js';
-	t.deepEqual(parseLineColumnPath(`${pathFixture}:1:2`), {
-		file: pathFixture,
+	t.deepEqual(parseLineColumnPath(`${fixturePath}:1:2`), {
+		file: fixturePath,
 		line: 1,
 		column: 2,
 	});
@@ -31,6 +35,14 @@ test('parse string', t => {
 		parseLineColumnPath(':1:1');
 	}, {
 		message: 'Missing file path',
+	});
+});
+
+test('parse URL', t => {
+	t.deepEqual(parseLineColumnPath(fixtureUrl), {
+		file: fixturePath,
+		line: 1,
+		column: 1,
 	});
 });
 
@@ -60,6 +72,24 @@ test('parse object', t => {
 		file: 'x.js',
 		line: 1,
 		column: 1,
+	});
+
+	t.deepEqual(parseLineColumnPath({
+		file: fixtureUrl,
+	}), {
+		file: fixturePath,
+		line: 1,
+		column: 1,
+	});
+
+	t.deepEqual(parseLineColumnPath({
+		file: fixtureUrl,
+		line: 20,
+		column: 10,
+	}), {
+		file: fixturePath,
+		line: 20,
+		column: 10,
 	});
 
 	t.throws(() => {

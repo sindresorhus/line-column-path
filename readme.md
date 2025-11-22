@@ -28,7 +28,7 @@ stringifyLineColumnPath(parsed);
 
 #### path
 
-Type: `string | object`
+Type: `string | URL | object`
 
 The file path to parse.
 
